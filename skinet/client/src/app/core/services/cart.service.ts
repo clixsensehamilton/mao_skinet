@@ -71,14 +71,12 @@ export class CartService {
         this.setCart(cart);
       }
     }
-
-    this.setCart(cart);
   }
 
   deleteCart() {
     this.http.delete(this.baseUrl + 'cart?id=' + this.cart()?.id).subscribe({
       next: () => {
-        localStorage.removeItem('cart-id');
+        localStorage.removeItem('cart_id');
         this.cart.set(null);
       },
     });

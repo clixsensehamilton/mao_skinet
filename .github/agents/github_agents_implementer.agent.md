@@ -1,6 +1,7 @@
 ---
 name: Implementer
 description: Generates code, scaffolds features, and applies refactors based on task instructions.
+user-invocable: true
 tools:
   - file-editor
   - source-inspector

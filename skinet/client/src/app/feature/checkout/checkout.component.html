@@ -1,3 +1,43 @@
-<div class="mt-5">
-  <h1 class="text-2xl">Only authorized users should be able to see this!</h1>
-</div>
+<section class="mx-auto mt-10 max-w-4xl space-y-6">
+  @if (isSuccess) {
+    <div class="rounded-lg border border-green-200 bg-green-50 p-4 text-green-900">
+      Payment successful. Thank you for your order!
+    </div>
+  }
+
+  @if (isCanceled) {
+    <div class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
+      Payment canceled. You can try again when ready.
+    </div>
+  }
+
+  @if (!cartService.cart()) {
+    <div class="rounded-lg border border-gray-200 bg-white p-4">
+      <p class="text-gray-700">Your cart is empty.</p>
+      <a class="text-indigo-600" routerLink="/shop">Continue shopping</a>
+    </div>
+  }
+
+  @if (cartService.cart()) {
+    <div class="grid gap-6 md:grid-cols-[2fr_1fr]">
+      <div class="rounded-lg border border-gray-200 bg-white p-4">
+        <h1 class="text-xl font-semibold">Checkout</h1>
+        <p class="mt-2 text-gray-600">Complete your purchase using Stripe.</p>
+        <button
+          class="mt-6"
+          mat-flat-button
+          [disabled]="isLoading"
+          (click)="startCheckout()"
+        >
+          @if (isLoading) {
+            Redirecting to Stripe...
+          } @else {
+            Pay with Stripe
+          }
+        </button>
+      </div>
+
+      <app-order-summary></app-order-summary>
+    </div>
+  }
+</section>
